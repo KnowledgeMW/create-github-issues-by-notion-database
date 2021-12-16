@@ -32,8 +32,15 @@ async function createGitHubIssues(tasks: Page[]) {
 
     const propertyValues: InputPropertyValueMap = {}
     propertyValues[PROPERTY_NO] = {
-      type: 'number',
-      number: createdIssue.data.number
+      type: 'rich_text',
+      rich_text: [
+        {
+          type: "text",
+          text:{
+            content: "TASK-" + createdIssue.data.number
+          }
+        }
+      ]
     }
     propertyValues[PROPERTY_GITHUB] = {
       type: 'url',
@@ -62,7 +69,7 @@ async function getTasksFromDatabase() {
           },
           {
             property: PROPERTY_NO,
-            number: {
+            text: {
               is_empty: true
             },
           }
